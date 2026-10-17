@@ -12,7 +12,7 @@ if(!personas[character]||!Array.isArray(history)||history.length===0||history.le
 const clean=history.slice(-16).filter(m=>['user','model'].includes(m.role)&&typeof m.text==='string').map(m=>({role:m.role,parts:[{text:m.text.slice(0,800)}]}));
 if(!clean.length||clean.at(-1).role!=='user')return new Response(JSON.stringify({error:'메시지를 입력해 주세요.'}),{status:400,headers});
 const system=`${personas[character]}\n이 서비스는 실제 상담·의료 서비스가 아니다. 사용자의 말에 구체적으로 반응하고 직전 대화 맥락을 이어 가라. 다른 캐릭터나 AI라고 자칭하지 않는다. 위험한 상황, 자해 암시, 학대 등 심각한 위기에서는 캐릭터 말투보다 안전을 우선하여 즉시 주변의 믿을 만한 사람이나 현지 긴급 서비스에 연락하도록 차분히 안내한다. 사용자에게 과도한 의존을 유도하지 않는다. 한국어로 답하라.`;
-const response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:clean,generationConfig:{temperature:0.9,maxOutputTokens:350}})});
+const response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:clean,generationConfig:{temperature:0.9,maxOutputTokens:350}})});
 const data=await response.json();if(!response.ok)throw new Error(response.status===429?'무료 AI 사용량이 잠시 초과됐어요. 조금 뒤 다시 시도해 주세요.':(data.error?.message||'AI 응답에 문제가 생겼어요.'));
 const text=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('').trim();if(!text)throw new Error('답변을 받지 못했어요. 다시 시도해 주세요.');
 return new Response(JSON.stringify({reply:text}),{headers});
