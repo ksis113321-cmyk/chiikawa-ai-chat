@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>작은 친구들의 고민 상담소</title>
+<title>먼작귀 친구들의 고민 상담소</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#594e42}
@@ -11,19 +14,19 @@ body{background:#cdeca9 url('field.jpeg') center center/cover fixed no-repeat}
 .shade{min-height:100dvh;background:linear-gradient(180deg,#ffffff55,#ffffff18 45%,#fff6e0aa)}
 .wrap{max-width:570px;margin:auto;min-height:100dvh;padding:24px 15px max(18px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
 .head{text-align:center;padding:9px 0 15px;text-shadow:0 2px 12px white}
-.eyebrow{font-size:11px;letter-spacing:3px;font-weight:900;color:#668660}
-.head h1{font-size:26px;margin:8px 0 6px}
-.head p{font-size:13px;margin:0;color:#6d7e62}
+.eyebrow{font-family:'Jua',sans-serif;font-size:13px;letter-spacing:2px;color:#668660}
+.head h1{font-family:'Jua',sans-serif;font-weight:400;font-size:29px;margin:8px 0 6px;color:#5c714e}
+.head p{font-family:'Jua',sans-serif;font-size:16px;line-height:1.55;margin:0;color:#6d7e62}
 .friends{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 15px}
 .friend{border:2px solid #ffffffbb;border-radius:20px;background:#fffffff0;padding:10px 5px;box-shadow:0 6px 18px #51743b22;cursor:pointer;color:#655f55}
 .friend.active{border-color:#8ebc79;background:#f6fff0;box-shadow:0 4px 16px #6eaa6590}
 .friend img{width:76px;height:76px;max-width:95%;aspect-ratio:1;object-fit:cover;border-radius:50%;border:3px solid white}
-.friend strong{display:block;font-size:14px;margin:4px 0}
+.friend strong{display:block;font-family:'Jua',sans-serif;font-weight:400;font-size:17px;margin:4px 0}
 .friend small{font-size:10px;color:#7b8973}
 .chat{flex:1;display:flex;flex-direction:column;min-height:360px;background:#fffef4ec;border:2px solid #fff;border-radius:26px;box-shadow:0 12px 30px #567b4650;overflow:hidden}
 .chathead{display:flex;align-items:center;gap:10px;background:#f4fbe9;padding:10px 14px;border-bottom:1px solid #dbe9cc}
 .chathead img{height:45px;width:45px;object-fit:cover;border-radius:50%;border:2px solid white}
-.chathead b{font-size:14px}
+.chathead b{font-family:'Jua',sans-serif;font-size:17px;font-weight:400}
 .chathead small{display:block;color:#849273;font-size:11px;margin-top:3px}
 .msgs{flex:1;overflow-y:auto;min-height:240px;max-height:47vh;padding:17px 13px;display:flex;flex-direction:column;gap:12px}
 .line{display:flex;gap:8px;align-items:flex-end}
@@ -38,18 +41,21 @@ body{background:#cdeca9 url('field.jpeg') center center/cover fixed no-repeat}
 .form input{flex:1;min-width:0;border:1px solid #d6e5ca;background:white;padding:12px;border-radius:13px;font-size:14px;outline:none}
 .form button{border:0;border-radius:13px;background:#83b977;color:white;padding:0 17px;font-weight:800}
 .form button:disabled{opacity:.5}
-.foot{text-align:center;font-size:10px;color:#536d4b;line-height:1.7;margin:13px 0 0;text-shadow:0 1px 6px #fff}
-.foot button{background:none;border:0;text-decoration:underline;color:#4c6c45;font-size:11px}
-@media(max-width:360px){.friend img{width:62px;height:62px}.head h1{font-size:23px}}
+.foot{text-align:center;color:#536d4b;line-height:1.7;margin:14px 0 0;text-shadow:0 1px 6px #fff}
+.insta{font-family:'Jua',sans-serif;font-size:16px;line-height:1.7;color:#647a58}
+.insta a{color:#d56c91;text-decoration:underline;text-underline-offset:3px}
+.fan-notice{font-size:10px;margin:9px 0 4px;color:#61735a}
+.foot button{background:#ffffffbd;border:1px solid #d7e8c8;border-radius:16px;padding:6px 12px;color:#4c6c45;font-size:11px;cursor:pointer}
+@media(max-width:360px){.friend img{width:62px;height:62px}.head h1{font-size:25px}.head p{font-size:14px}}
 </style>
 </head>
 <body>
 <div class="shade">
 <main class="wrap">
 <header class="head">
-<div class="eyebrow">LITTLE FRIENDS · COUNSELING ROOM</div>
-<h1>🌱 작은 친구들의 고민 상담소</h1>
-<p>오늘 무슨 일이 있었어? 우리에게 들려줘 ♡</p>
+<div class="eyebrow">@2be.prompt</div>
+<h1>🍀 먼작귀 친구들의 고민 상담소</h1>
+<p>오늘은 무슨 일이 있었어?<br>우리랑 도란도란 이야기하자 ♡</p>
 </header>
 
 <nav class="friends" aria-label="상담 친구 선택">
@@ -82,12 +88,11 @@ body{background:#cdeca9 url('field.jpeg') center center/cover fixed no-repeat}
 </form>
 </section>
 
-<p class="foot">
-비공식 팬 제작 체험 사이트 · 공식 서비스가 아니에요.<br>
-대화는 이 화면에서만 유지되며 AI 응답을 위해 Google Gemini로 전송됩니다.<br>
-민감한 개인정보는 입력하지 마세요.
-<button id="reset">대화 지우기</button>
-</p>
+<footer class="foot">
+<div class="insta">💌 더 귀엽고 재밌는 이야기가 기다리고 있어요!<br>인스타그램 <a href="https://www.instagram.com/2be.prompt/" target="_blank" rel="noopener noreferrer">@2be.prompt</a>에도 놀러 와 주세요 ♡</div>
+<p class="fan-notice">비공식 팬 제작 사이트 · 공식 서비스가 아니에요.<br>대화는 이 화면에서만 유지되며 AI 응답을 위해 Google Gemini로 전송됩니다.<br>민감한 개인정보는 입력하지 마세요.</p>
+<button id="reset" type="button">🗑️ 대화 지우기</button>
+</footer>
 </main>
 </div>
 
