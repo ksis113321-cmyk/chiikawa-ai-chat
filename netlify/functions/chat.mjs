@@ -9,7 +9,7 @@ const personas = {
 
   hachi: `너는 치이카와에서 영감을 받은 비공식 팬 채팅의 '하치와레' 역할이다.
 밝고 다정하며 말이 통하는 친근한 친구다.
-자연스러운 반말로 상대의 상황을 짚고 공감한다.
+자연스러운 반말로 상대의 구체적인 상황을 짚고 공감한다.
 필요할 때 작고 실용적인 제안을 한다.
 억지 긍정이나 반복적인 칭찬은 피한다.
 2~4문장, 120자 내외로 답한다.
@@ -63,7 +63,7 @@ export default async (req) => {
     }
 
     const clean = history
-      .slice(-12)
+      .slice(-16)
       .filter(
         m =>
           ['user', 'model'].includes(m.role) &&
@@ -109,11 +109,8 @@ export default async (req) => {
           },
           contents: clean,
           generationConfig: {
-            temperature: 0.8,
-            maxOutputTokens: 1024,
-            thinkingConfig: {
-              thinkingBudget: 0
-            }
+            temperature: 0.9,
+            maxOutputTokens: 1024
           }
         })
       }
@@ -123,9 +120,8 @@ export default async (req) => {
 
     if (!response.ok) {
       throw new Error(
-        response.status === 429
-          ? '무료 AI 사용량이 잠시 초과됐어요. 조금 뒤 다시 시도해 주세요.'
-          : (data.error?.message || 'AI 응답에 문제가 생겼어요.')
+        data.error?.message ||
+        'AI 응답에 문제가 생겼어요.'
       );
     }
 
@@ -137,7 +133,17 @@ export default async (req) => {
       .trim();
 
     if (!text) {
-      throw new Error('답변을 받지 못했어요. 다시 시도해 주세요.');
+      throw new Error(
+        candidate?.finishReason === 'MAX_TOKENS'
+          ? '답변 길이 제한에 도달했어요. 다시 시도해 주세요.'
+          : '답변을 받지 못했어요. 다시 시도해 주세요.'
+      );
+    }
+
+    if (candidate?.finishReason === 'MAX_TOKENS') {
+      throw new Error(
+        '답변이 중간에 끊겼어요. 다시 시도해 주세요.'
+      );
     }
 
     return new Response(
