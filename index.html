@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>🌷 먼작귀 친구들의 고민 상담소</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:'Jua',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#594e42}
+body{background:#cdeca9 url('field.jpeg') center center/cover fixed no-repeat}
+.shade{min-height:100dvh;background:linear-gradient(180deg,#ffffff55,#ffffff18 45%,#fff6e0aa)}
+.wrap{max-width:570px;margin:auto;min-height:100dvh;padding:24px 15px max(18px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
+.head{text-align:center;padding:9px 0 15px;text-shadow:0 2px 12px white}
+.eyebrow{font-size:11px;letter-spacing:3px;color:#668660}
+.head h1{font-size:26px;margin:8px 0 6px}.head p{font-size:13px;margin:0;color:#6d7e62}
+.friends{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 15px}
+.friend{border:2px solid #ffffffbb;border-radius:20px;background:#fffffff0;padding:10px 5px;box-shadow:0 6px 18px #51743b22;cursor:pointer;color:#655f55;font-family:inherit}
+.friend.active{border-color:#8ebc79;background:#f6fff0;box-shadow:0 4px 16px #6eaa6590}
+.friend img{width:76px;height:76px;max-width:95%;aspect-ratio:1;object-fit:cover;border-radius:50%;border:3px solid white}
+.friend strong{display:block;font-size:14px;margin:4px 0}.friend small{font-size:10px;color:#7b8973}
+.chat{flex:1;display:flex;flex-direction:column;min-height:360px;background:#fffef4ec;border:2px solid #fff;border-radius:26px;box-shadow:0 12px 30px #567b4650;overflow:hidden}
+.chathead{display:flex;align-items:center;gap:10px;background:#f4fbe9;padding:10px 14px;border-bottom:1px solid #dbe9cc}
+.chathead img{height:45px;width:45px;object-fit:cover;border-radius:50%;border:2px solid white}.chathead b{font-size:14px}.chathead small{display:block;color:#849273;font-size:11px;margin-top:3px}
+.msgs{flex:1;overflow-y:auto;min-height:240px;max-height:47vh;padding:17px 13px;display:flex;flex-direction:column;gap:12px}
+.line{display:flex;gap:8px;align-items:flex-end}.line.me{justify-content:flex-end}.mini{width:31px;height:31px;object-fit:cover;border-radius:50%;border:1px solid #fff;flex:none}
+.bubble{max-width:80%;padding:11px 13px;font-size:14px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #edf0dc;border-radius:17px 17px 17px 4px;box-shadow:0 3px 9px #6a895016}
+.me .bubble{background:#dcf1ce;border-color:#d3e9c7;border-radius:17px 17px 4px 17px}
+.status{height:25px;font-size:11px;padding-left:16px;color:#78946a}.quick{display:flex;gap:7px;overflow-x:auto;padding:0 12px 12px}
+.quick button{white-space:nowrap;border:1px solid #d9e9c9;background:#fff;border-radius:20px;padding:8px 11px;color:#658052;font-size:12px;font-family:inherit}
+.form{display:flex;gap:8px;padding:12px;background:#f5faed;border-top:1px solid #e1ecd8}
+.form input{flex:1;min-width:0;border:1px solid #d6e5ca;background:white;padding:12px;border-radius:13px;font-size:14px;outline:none;font-family:inherit}
+.form button{border:0;border-radius:13px;background:#83b977;color:white;padding:0 17px;font-weight:800;font-family:inherit}.form button:disabled{opacity:.5}
+.foot{text-align:center;font-size:10px;color:#536d4b;line-height:1.7;margin:13px 0 0;text-shadow:0 1px 6px #fff}
+.foot button{background:none;border:0;text-decoration:underline;color:#4c6c45;font-size:11px;font-family:inherit}
+.foot a{color:#4c6c45}.fan-notice{margin:6px 0}
+@media(max-width:360px){.friend img{width:62px;height:62px}.head h1{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="shade"><main class="wrap">
+<header class="head"><div class="eyebrow">CHIIKAWA ♡ FRIENDS</div><h1>🌷 먼작귀 친구들의 고민 상담소</h1><p>오늘은 무슨 일이 있었어? 우리랑 도란도란 이야기하자 ♡</p></header>
+<nav class="friends" aria-label="상담 친구 선택">
+<button class="friend active" data-id="chi"><img src="chi.jpeg" alt=""><strong>치이카와</strong><small>조심조심 위로</small></button>
+<button class="friend" data-id="hachi"><img src="hachi.jpeg" alt=""><strong>하치와레</strong><small>다정한 대화</small></button>
+<button class="friend" data-id="usa"><img src="usa.jpeg" alt=""><strong>우사기</strong><small>엉뚱한 응원</small></button>
+</nav>
+<section class="chat"><div class="chathead"><img id="avatar" src="chi.jpeg" alt=""><div><b id="who">치이카와</b><small id="tagline">네 이야기를 기다리고 있어…!</small></div></div>
+<div class="msgs" id="msgs" aria-live="polite"></div><div class="status" id="status"></div>
+<div class="quick"><button data-text="오늘 너무 지쳤어">😮‍💨 지쳤어</button><button data-text="좋아하는 사람 때문에 속상해">💔 연애 고민</button><button data-text="내일이 너무 걱정돼">🥺 걱정돼</button></div>
+<form id="form" class="form"><input id="input" maxlength="500" placeholder="고민을 털어놓아 봐 💌" aria-label="메시지 입력" required><button id="send" type="submit">보내기 ↗</button></form>
+</section>
+<footer class="foot">비공식 팬 제작 체험 사이트 · 공식 서비스가 아니에요.<br>
+<p class="fan-notice">제작자는 대화 내용을 별도로 저장하는 기능을 구현하지 않았어요.<br>AI 답변을 위해 메시지는 Google Gemini로 전송돼요.<br>민감한 개인정보는 입력하지 마세요.</p>
+<!-- 인스타그램 계정 주소가 정해지면 아래 링크의 주소를 교체하세요. -->
+<a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">🌷 인스타그램 놀러가기</a><br>
+<button id="reset" type="button">🗑️ 대화 지우기</button></footer>
+</main></div>
+<script>
+const p={
+chi:{name:'치이카와',tag:'네 이야기를 기다리고 있어…!',hello:'우…! 와아…! 🌷',img:'chi.jpeg'},
+hachi:{name:'하치와레',tag:'천천히 이야기해도 괜찮아!',hello:'안녕! 오늘은 어떤 하루였어? 내가 들어줄게! 🩵',img:'hachi.jpeg'},
+usa:{name:'우사기',tag:'우라! 같이 놀고 얘기하자!',hello:'야하~ 야핫!! 🌼',img:'usa.jpeg'}
+};
+let active='chi',busy=false;
+const histories={chi:[],hachi:[],usa:[]},views={chi:[],hachi:[],usa:[]};
+const $=id=>document.getElementById(id);
+function bubble(text,me=false){
+const line=document.createElement('div');line.className='line'+(me?' me':'');
+if(!me){const img=document.createElement('img');img.src=p[active].img;img.className='mini';img.alt='';line.append(img);}
+const div=document.createElement('div');div.className='bubble';div.textContent=text;line.append(div);
+$('msgs').append(line);$('msgs').scrollTop=$('msgs').scrollHeight;views[active].push({text,me});
+}
+function select(id){
+if(busy)return;active=id;
+document.querySelectorAll('.friend').forEach(b=>b.classList.toggle('active',b.dataset.id===id));
+$('avatar').src=p[id].img;$('who').textContent=p[id].name;$('tagline').textContent=p[id].tag;$('msgs').replaceChildren();
+if(views[id].length){const saved=[...views[id]];views[id]=[];saved.forEach(m=>bubble(m.text,m.me));}
+else bubble(p[id].hello);
+}
+async function send(text){
+text=text.trim();if(!text||busy)return;busy=true;$('send').disabled=true;bubble(text,true);
+histories[active].push({role:'user',text});$('input').value='';$('status').textContent=p[active].name+'가 답장을 생각하고 있어… ✎';
+try{
+const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({character:active,history:histories[active].slice(-4)})});
+const data=await res.json();if(!res.ok)throw new Error(data.error||'연결 오류');
+bubble(data.reply);histories[active].push({role:'model',text:data.reply});
+}catch(err){histories[active].pop();bubble('앗, 연결이 잘 안 됐어! 💧\n'+err.message);}
+finally{busy=false;$('send').disabled=false;$('status').textContent='';}
+}
+document.querySelectorAll('.friend').forEach(b=>b.addEventListener('click',()=>select(b.dataset.id)));
+document.querySelectorAll('[data-text]').forEach(b=>b.addEventListener('click',()=>send(b.dataset.text)));
+$('form').addEventListener('submit',e=>{e.preventDefault();send($('input').value);});
+$('reset').addEventListener('click',()=>{histories[active]=[];views[active]=[];select(active);});
+select('chi');
+</script>
+</body></html>
